@@ -42,10 +42,18 @@
                 <br/>
 
                 <div class="caption">
-                    Pseudonyme
+                    Numéro étudiant
                 </div>
                 <div class="zone">
-                    <input type="text" name="pseudo" onblur="estVide('pseudo');" required/>
+                    <input type="number" name="numero-etudiant" onblur="estVide('numero-etudiant');" required/>
+                </div>
+                <br/>
+                
+                <div class="caption">
+                    Email
+                </div>
+                <div class="zone">
+                <input type="text" name="email" onblur="verifierEmail();" required/>
                 </div>
                 <br/>
 
@@ -53,7 +61,8 @@
                     Mot de passe 
                 </div>
                 <div class="zone">
-                    <input type="password" name="password" class="champ" />
+                    <input type="password" name="password" class="champ" onblur="verifierMdp('password');" required/>
+                    <input type="button" value="👁️" onclick="visibilite();"/>
                 </div>
                 <br/>
 
