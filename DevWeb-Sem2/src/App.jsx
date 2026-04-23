@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Connexion from './connexion';
 import Inscription from './inscription';
+import AccueilPrive from './accueilPrive';
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Dashboard = () => {
+const AccueilPrive = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
@@ -17,9 +17,24 @@ const Dashboard = () => {
 
   if (!user) return <p>Chargement...</p>;
 
+  const [utilisateurs, setUtilisateurs] = useState([]);
+
+  useEffect(() => {
+      fetch('http://127.0.0.1:8000/api/utilisateurs')
+          .then(response => response.json())
+          .then(data => setUtilisateurs(data))
+          .catch(error => console.error('Erreur:', error));
+  }, []);
+
   return (
     <div>
       <h1>Bienvenue sur votre espace, {user.prenom} !</h1>
+      <h2>Liste des utilisateurs enregistrés :</h2>
+      <ul>
+        {utilisateurs.map(u => (
+          <li key={u.id_user}>{u.prenom} {u.nom}</li>
+        ))}
+      </ul>
       <p>Voici les fonctionnalités disponibles :</p>
       
       <div style={{ display: 'grid', gap: '10px' }}>
@@ -32,4 +47,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AccueilPrive;

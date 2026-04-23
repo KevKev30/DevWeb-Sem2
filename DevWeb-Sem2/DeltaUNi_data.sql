@@ -1,9 +1,3 @@
--- ==========================================================
--- SCRIPT SQL GLOBAL : BASE DE DONNÉES DELTAUNI
--- commande : 
---- mysql -u root -p < deltauni_setup.sql ou mysql -u root < deltauni_setup.sql
--- ==========================================================
-
 CREATE DATABASE IF NOT EXISTS DeltaUni_DB;
 USE DeltaUni_DB;
 
