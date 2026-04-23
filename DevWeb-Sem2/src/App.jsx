@@ -8,6 +8,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
+        <Route path="/accueilPrive" element={<AccueilPrive/>}/>
       </Routes>
     </BrowserRouter>
   );

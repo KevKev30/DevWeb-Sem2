@@ -1,64 +1,90 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Inscription = () => {
-  const handleSubmit = (e) => {
+  const [type, setType] = useState(null);
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    email: '',
+    password: '',
+    num_etudiant: ''
+  });
+  
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Inscription envoyée !");
+    
+    const response = await fetch('http://localhost:8080/inscription.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...formData, type: type })
+    });
+
+    const result = await response.json();
+    
+    if (result.status === "success") {
+      alert("Inscription réussie !");
+      navigate('/connexion');
+    } else {
+      alert("Erreur : " + result.message);
+    }
   };
 
   return (
     <fieldset>
-      <p>Inscrivez-vous</p>
-      <form onSubmit={handleSubmit}>
-        <div className="caption">Civilité</div>
-        <div className="zone">
-          <select name="civilite">
-            <option value="Femme">Mme</option>
-            <option value="Homme">M</option>
-            <option value="Autre">Autre</option>
-          </select>
-        </div>
-        <br />
+      <legend>Inscription à DeltaUni</legend>
 
-        <div className="caption">Nom</div>
-        <div className="zone">
-          <input type="text" name="nom" required />
+      {!type ? (
+        <div>
+          <p>Quel est votre statut ?</p>
+          <button onClick={() => setType('etudiant')}>Je suis Étudiant</button>
+          <button onClick={() => setType('visiteur')}>Je suis Visiteur</button>
         </div>
-        <br />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <h3>Inscription {type === 'etudiant' ? 'Étudiant' : 'Visiteur'}</h3>
+          
+          <div>
+            <label>Nom : </label>
+            <input name="nom" onChange={handleChange} required />
+          </div>
+          
+          <div>
+            <label>Prénom : </label>
+            <input name="prenom" onChange={handleChange} required />
+          </div>
+          
+          {type === 'etudiant' && (
+            <div>
+              <label>Numéro Étudiant : </label>
+              <input name="num_etudiant" onChange={handleChange} required />
+            </div>
+          )}
 
-        <div className="caption">Prénom</div>
-        <div className="zone">
-          <input type="text" name="prenom" required />
-        </div>
-        <br />
+          <div>
+            <label>Email : </label>
+            <input type="email" name="email" onChange={handleChange} required />
+          </div>
 
-        <div className="caption">Numéro étudiant</div>
-        <div className="zone">
-          <input type="number" name="numero-etudiant" required />
-        </div>
-        <br />
-
-        <div className="caption">Email</div>
-        <div className="zone">
-          <input type="email" name="email" required />
-        </div>
-        <br />
-
-        <div className="caption">Mot de passe</div>
-        <div className="zone">
-          <input type="password" name="password" className="champ" required />
-        </div>
-        <br />
-        
-        <div className="cliquer">
-          <input type="submit" value="Créer mon compte" />
-        </div>
-        <br />
-        
-        {/* Le lien React Router vers la page connexion */}
-        <em>Vous avez déjà un compte ? <Link to="/">Connexion</Link></em>
-      </form>
+          <div>
+            <label>Mot de passe : </label>
+            <input type="password" name="password" onChange={handleChange} required />
+          </div>
+          
+          <br />
+          <button type="submit">S'inscrire</button>
+          <button type="button" onClick={() => setType(null)}>Retour</button>
+        </form>
+      )}
+      
+      <br />
+      <em>Déjà un compte ? <Link to="/">Connectez-vous ici</Link></em>
     </fieldset>
   );
 };
