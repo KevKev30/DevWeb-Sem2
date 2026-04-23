@@ -1,0 +1,36 @@
+# --- Règles héritées du dossier deltauni (ajustées) ---
+/deltauni/*.log
+/deltauni/.DS_Store
+/deltauni/.env
+/deltauni/.env.backup
+/deltauni/.env.production
+/deltauni/.phpactor.json
+/deltauni/.phpunit.result.cache
+/deltauni/.codex
+/deltauni/.cursor/
+/deltauni/.idea
+/deltauni/.nova
+/deltauni/.phpunit.cache
+/deltauni/.vscode
+/deltauni/.zed
+/deltauni/auth.json
+/deltauni/node_modules
+/deltauni/public/build
+/deltauni/public/hot
+/deltauni/public/storage
+/deltauni/storage/*.key
+/deltauni/storage/pail
+/deltauni/vendor
+/deltauni/_ide_helper.php
+/deltauni/Homestead.json
+/deltauni/Homestead.yaml
+/deltauni/Thumbs.db
+
+# --- Règles globales pour la racine ---
+node_modules
+dist
+dist-ssr
+*.local
+.vscode
+.idea
+.DS_Store
