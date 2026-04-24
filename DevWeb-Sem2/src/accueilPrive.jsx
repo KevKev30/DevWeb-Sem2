@@ -26,6 +26,12 @@ const AccueilPrive = () => {
 
       <div style={{ flex: 1, padding: "20px" }}>
         <h1>Bienvenue {user.prenom} 👋</h1>
+        <button onClick={() => { localStorage.clear(); navigate('/'); }}>
+          Se déconnecter
+        </button>
+        <button onClick={() => navigate('/Profil')}>
+          Modifier mon profil
+        </button>
 
         {/* ici s'affichent les pages */}
         <Outlet />

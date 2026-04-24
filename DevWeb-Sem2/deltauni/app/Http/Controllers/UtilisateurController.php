@@ -61,4 +61,43 @@ class UtilisateurController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Erreur lors de l\'inscription : ' . $e->getMessage()], 500);
         }
     }
+
+    public function ajouterPoints(Request $request, $id)
+    {
+        $user = Utilisateur::where('id_user', $id)->firstOrFail();
+        $type = $request->input('type'); // 'connexion' ou 'consultation'
+
+        $points = match($type) {
+            'connexion'   => 0.25,
+            'consultation' => 0.50,
+            default => 0
+        };
+
+        $user->points += $points;
+
+        // Mise à jour du niveau selon les points
+        $user->niveau = match(true) {
+            $user->points >= 7  => 'Expert',
+            $user->points >= 5  => 'Avancé',
+            $user->points >= 3  => 'Intermédiaire',
+            default             => 'Débutant'
+        };
+
+        $user->save();
+
+        return response()->json([
+            'status' => 'success',
+            'points' => $user->points,
+            'niveau' => $user->niveau
+        ]);
+    }
+
+    public function getNiveau($id)
+    {
+        $user = Utilisateur::where('id_user', $id)->firstOrFail();
+        return response()->json([
+            'points' => $user->points,
+            'niveau' => $user->niveau
+        ]);
+    }
 }

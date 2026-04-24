@@ -12,7 +12,7 @@ const Connexion = () => {
     console.log(email, password);
     
     try{
-      const response = await fetch('http://localhost/DevWeb-Sem2/DevWeb-Sem2/api/connexion.php', {
+      const response = await fetch('http://127.0.0.1:8000/api/connexion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -24,14 +24,15 @@ const Connexion = () => {
 
       const result = await response.json();
 
-      console.log("LOGIN RESULT:", result); // 🔥 debug important
+      console.log("LOGIN RESULT:", result);
 
       if (result.status === "success") {
         localStorage.setItem('user', JSON.stringify(result.user));
-      
-        navigate('/accueilPrive');
-      } else {
-        alert(result.message || "Erreur inconnue");
+        if (result.user.id_profil === 4) {
+          navigate('/accueilVisiteur');
+        } else {
+          navigate('/accueilPrive');
+        }
       }
     }catch (error){
       console.error(error);

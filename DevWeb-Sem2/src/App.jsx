@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Connexion from "./Connexion";
-import AccueilPrive from "./AccueilPrive";
+import Connexion from "./connexion";
+import AccueilPrive from "./accueilPrive";
+import Inscription from "./inscription";
+import AccueilVisiteur from "./accueilVisiteur";
+import Profil from "./Profil";
 
 import Salles from "./pages/Salles";
 import Reservations from "./pages/Reservations";
@@ -14,7 +17,10 @@ function App() {
       <Routes>
 
         {/* page publique */}
-        <Route path="/" element={<Connexion />} />
+        <Route path="/" element={<AccueilVisiteur />} />
+        <Route path="/connexion" element={<Connexion />} />
+        <Route path="/inscription" element={<Inscription />} />
+        <Route path="/accueilVisiteur" element={<AccueilVisiteur />} />
 
         {/* espace privé */}
         <Route path="/accueilPrive" element={<AccueilPrive />} />
@@ -24,6 +30,7 @@ function App() {
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/ordinateurs" element={<Ordinateurs />} />
+        <Route path="/profil" element={<Profil />} />
 
       </Routes>
     </BrowserRouter>
