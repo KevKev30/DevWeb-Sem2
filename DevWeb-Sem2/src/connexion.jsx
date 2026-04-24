@@ -2,26 +2,40 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Connexion = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log("LOGIN CLICKED");
+    console.log(email, password);
     
-    const response = await fetch('http://127.0.0.1:8000/api/connexion', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
+    try{
+      const response = await fetch('http://localhost/DevWeb-Sem2/DevWeb-Sem2/api/connexion.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-    const result = await response.json();
+      if (!response.ok){
+        throw new Error("Erreur serveur");
+      }
 
-    if (result.status === "success") {
-      localStorage.setItem('user', JSON.stringify(result.user));
-      navigate('/accueilPrive');
-    } else {
-      alert(result.message);
+      const result = await response.json();
+
+      console.log("LOGIN RESULT:", result); // 🔥 debug important
+
+      if (result.status === "success") {
+        localStorage.setItem('user', JSON.stringify(result.user));
+      
+        navigate('/accueilPrive');
+      } else {
+        alert(result.message || "Erreur inconnue");
+      }
+    }catch (error){
+      console.error(error);
+      alert("Erreur de connexion au serveur");
     }
   };
 

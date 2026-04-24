@@ -20,7 +20,7 @@ const Inscription = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const response = await fetch('http://127.0.0.1:8000/api/inscription', {
+    const response = await fetch('http://localhost/DevWeb-Sem2/DevWeb-Sem2/api/connexion.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...formData, type: type })
@@ -30,7 +30,7 @@ const Inscription = () => {
     
     if (result.status === "success") {
       alert("Inscription réussie !");
-      navigate('/connexion');
+      navigate('/accueilPrive');
     } else {
       alert("Erreur : " + result.message);
     }
