@@ -28,6 +28,14 @@ const Connexion = () => {
 
       if (result.status === "success") {
         localStorage.setItem('user', JSON.stringify(result.user));
+        
+        // Ajouter points de connexion
+        await fetch(`http://127.0.0.1:8000/api/points/${result.user.id_user}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'connexion' })
+        });
+
         if (result.user.id_profil === 4) {
           navigate('/accueilVisiteur');
         } else {

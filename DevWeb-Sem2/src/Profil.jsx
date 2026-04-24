@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 const Profil = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    email: '',
+    num_etudiant: '',
+    password: ''
+  });
   const [editing, setEditing] = useState(false);
   const [message, setMessage] = useState(null);
 
@@ -16,7 +22,8 @@ const Profil = () => {
       nom: userData.nom,
       prenom: userData.prenom,
       email: userData.email,
-      num_etudiant: userData.num_etudiant || ''
+      num_etudiant: userData.num_etudiant || '',
+      password: ''
     });
   }, [navigate]);
 
@@ -29,7 +36,8 @@ const Profil = () => {
       nom: user.nom,
       prenom: user.prenom,
       email: user.email,
-      num_etudiant: user.num_etudiant || ''
+      num_etudiant: user.num_etudiant || '',
+      password: ''
     });
     setEditing(false);
     setMessage(null);
@@ -58,6 +66,9 @@ const Profil = () => {
 
   const profilLabels = { 1: 'Étudiant', 2: 'Enseignant', 3: 'Administrateur', 4: 'Visiteur' };
 
+
+
+
   return (
     <div>
       <h1>Mon profil — {user.prenom} {user.nom}</h1>
@@ -84,6 +95,17 @@ const Profil = () => {
             <input name="num_etudiant" value={formData.num_etudiant || ''} disabled />
           </div>
         )}
+
+        <div>
+          <label>Mot de passe : </label>
+          <input 
+            type="password" 
+            name="password" 
+            value={formData.password || ''} 
+            onChange={handleChange} 
+            disabled={!editing} 
+          />
+        </div>
 
         <br />
         {!editing ? (
