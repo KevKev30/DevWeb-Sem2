@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Capteur;
 use App\Models\HistoriqueCapteur;
 use App\Models\DemandeSuppression;
