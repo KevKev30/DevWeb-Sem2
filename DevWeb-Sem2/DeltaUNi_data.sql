@@ -4,18 +4,18 @@ USE DeltaUni_DB;
 -- 1. STRUCTURE DES TABLES
 -- ----------------------------------------------------------
  
-CREATE TABLE IF NOT EXISTS PROFIL (
+CREATE TABLE PROFIL (
     id_profil INT PRIMARY KEY,
     libelle_profil VARCHAR(50)
 );
  
-CREATE TABLE IF NOT EXISTS BATIMENT (
+CREATE TABLE BATIMENT (
     id_bat INT PRIMARY KEY,
     nom_bat VARCHAR(50),
     specialite VARCHAR(100)
 );
  
-CREATE TABLE IF NOT EXISTS UTILISATEUR (
+CREATE TABLE UTILISATEUR (
     id_user INT PRIMARY KEY AUTO_INCREMENT,
     num_etudiant VARCHAR(8) UNIQUE NULL,
     nom VARCHAR(50),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS UTILISATEUR (
     FOREIGN KEY (id_profil) REFERENCES PROFIL(id_profil)
 );
  
-CREATE TABLE IF NOT EXISTS SALLE (
+CREATE TABLE SALLE (
     id_salle INT PRIMARY KEY AUTO_INCREMENT,
     num_salle VARCHAR(10),
     type_salle VARCHAR(50),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS SALLE (
     FOREIGN KEY (id_bat) REFERENCES BATIMENT(id_bat)
 );
  
-CREATE TABLE IF NOT EXISTS CAPTEUR (
+CREATE TABLE CAPTEUR (
     id_capteur INT PRIMARY KEY AUTO_INCREMENT,
     type_capteur ENUM('Température', 'Éclairage', 'Eau', 'Électricité'),
     valeur_actuelle FLOAT,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS CAPTEUR (
     FOREIGN KEY (id_salle) REFERENCES SALLE(id_salle)
 );
  
-CREATE TABLE IF NOT EXISTS COURS (
+CREATE TABLE COURS (
     id_cours INT PRIMARY KEY AUTO_INCREMENT,
     nom_matiere VARCHAR(100),
     date_heure_debut DATETIME,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS COURS (
     FOREIGN KEY (id_prof) REFERENCES UTILISATEUR(id_user)
 );
  
-CREATE TABLE IF NOT EXISTS RESTO_U (
+CREATE TABLE RESTO_U (
     id_menu INT PRIMARY KEY AUTO_INCREMENT,
     date_jour DATE,
     entree VARCHAR(100),
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS RESTO_U (
     FOREIGN KEY (id_bat) REFERENCES BATIMENT(id_bat)
 );
  
-CREATE TABLE IF NOT EXISTS EVENEMENT (
+CREATE TABLE EVENEMENT (
     id_evt INT PRIMARY KEY AUTO_INCREMENT,
     titre_evt VARCHAR(100),
     description_longue TEXT,
@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS EVENEMENT (
 -- 2. INSERTION DES DONNÉES DE RÉFÉRENCE
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO PROFIL VALUES (1,'Étudiant'), (2,'Enseignant'), (3,'Administrateur'), (4,'Utilisateur');
-INSERT IGNORE INTO BATIMENT VALUES 
+INSERT INTO PROFIL VALUES (1,'Étudiant'), (2,'Enseignant'), (3,'Administrateur'), (4,'Utilisateur');
+INSERT INTO BATIMENT VALUES 
 (1,'Turing','Informatique'), 
 (2,'Cauchy','Humanités'), 
 (3,'Condorcet','Langues, Admin, Vie Etudiante');
@@ -95,7 +95,7 @@ INSERT IGNORE INTO BATIMENT VALUES
 -- 3. INSERTION DES UTILISATEURS (20 Etudiants, 5 Profs, 3 Admins, 2 Visiteurs)
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO UTILISATEUR (num_etudiant, nom, prenom, email, mot_de_passe, id_profil, points, niveau) VALUES 
+INSERT INTO UTILISATEUR (num_etudiant, nom, prenom, email, mot_de_passe, id_profil, points, niveau) VALUES 
 ('20260001', 'Martin', 'Lucas', 'lucas.martin@deltauni.fr', 'pass01', 1, 0, 'Débutant'),
 ('20260002', 'Bernard', 'Emma', 'emma.bernard@deltauni.fr', 'pass02', 1, 0, 'Débutant'),
 ('20260003', 'Thomas', 'Hugo', 'hugo.thomas@deltauni.fr', 'pass03', 1, 0, 'Débutant'),
@@ -130,7 +130,7 @@ INSERT IGNORE INTO UTILISATEUR (num_etudiant, nom, prenom, email, mot_de_passe, 
 -- 4. INSERTION DES SALLES
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO SALLE (num_salle, type_salle, est_reservable, nb_pc_total, pc_disponibles, id_bat) VALUES 
+INSERT INTO SALLE (num_salle, type_salle, est_reservable, nb_pc_total, pc_disponibles, id_bat) VALUES 
 ('T101', 'Labo', 1, 30, 12, 1),
 ('T102', 'Labo', 1, 30, 28, 1),
 ('T-Amphi', 'Cours', 1, 0, 0, 1),
@@ -146,7 +146,7 @@ INSERT IGNORE INTO SALLE (num_salle, type_salle, est_reservable, nb_pc_total, pc
 -- 5. INSERTION DES CAPTEURS (Incluant des pannes)
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO CAPTEUR (type_capteur, valeur_actuelle, unite_mesure, etat_fonctionnement, id_salle) VALUES 
+INSERT INTO CAPTEUR (type_capteur, valeur_actuelle, unite_mesure, etat_fonctionnement, id_salle) VALUES 
 ('Température', 21.5, '°C', 'OK', 1),
 ('Éclairage', 1, 'bool', 'OK', 1),
 ('Température', 19.0, '°C', 'Panne', 2),
@@ -157,7 +157,7 @@ INSERT IGNORE INTO CAPTEUR (type_capteur, valeur_actuelle, unite_mesure, etat_fo
 -- 6. INSERTION DES COURS (Un annulé)
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO COURS (nom_matiere, date_heure_debut, date_heure_fin, statut_cours, id_salle, id_prof) VALUES 
+INSERT INTO COURS (nom_matiere, date_heure_debut, date_heure_fin, statut_cours, id_salle, id_prof) VALUES 
 ('Développement Web', '2026-05-10 08:30:00', '2026-05-10 11:30:00', 'Maintenu', 1, 21),
 ('Algorithmique', '2026-05-10 14:00:00', '2026-05-10 16:00:00', 'Annulé', 3, 22),
 ('Sociologie', '2026-05-11 10:00:00', '2026-05-11 12:00:00', 'Maintenu', 6, 23);
@@ -165,14 +165,14 @@ INSERT IGNORE INTO COURS (nom_matiere, date_heure_debut, date_heure_fin, statut_
 -- 7. INSERTION RESTO_U (Menu Cantine)
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO RESTO_U (date_jour, entree, plat_principal, dessert, stock_distributeur, id_bat) VALUES 
+INSERT INTO RESTO_U (date_jour, entree, plat_principal, dessert, stock_distributeur, id_bat) VALUES 
 ('2026-05-10', 'Salade de tomates', 'Lasagnes boeuf', 'Yaourt fruit', 'Sandwichs: 15', 3),
 ('2026-05-11', 'Oeuf mayo', 'Poulet rôti frites', 'Pomme', 'Sandwichs: 8', 3);
  
 -- 8. INSERTION DES ÉVÉNEMENTS
 -- ----------------------------------------------------------
  
-INSERT IGNORE INTO EVENEMENT (titre_evt, description_longue, date_heure_evt, lieu_precis, id_organisateur) VALUES 
+INSERT INTO EVENEMENT (titre_evt, description_longue, date_heure_evt, lieu_precis, id_organisateur) VALUES 
 ('Soirée BDE', 'Grande soirée de fin de semestre pour tous.', '2026-05-15 21:00:00', 'Hall Condorcet', 26),
 ('Hackathon DeltaJunior', '24h de code non-stop.', '2026-06-10 09:00:00', 'Salles T101/T102', 1),
 ('Conférence IA', 'L impact de l IA sur le métier d ingénieur.', '2026-05-20 14:00:00', 'Amphi Turing', 21),
