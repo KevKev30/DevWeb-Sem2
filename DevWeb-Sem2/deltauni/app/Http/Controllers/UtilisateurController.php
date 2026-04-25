@@ -100,4 +100,12 @@ class UtilisateurController extends Controller
             'niveau' => $user->niveau
         ]);
     }
+
+    public function membres()
+    {
+        $membres = Utilisateur::where('id_profil', '!=', 4)
+                      ->where('id_profil', '!=', 3)
+                      ->get();
+        return response()->json($membres);
+    }
 }

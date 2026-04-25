@@ -60,7 +60,6 @@ const AccueilVisiteur = () => {
       <nav>
         <button onClick={() => setActiveSection('accueil')}>Accueil</button>
         <button onClick={() => setActiveSection('formations')}>Formations</button>
-        <button onClick={() => setActiveSection('campus')}>Campus</button>
         <button onClick={() => setActiveSection('événements')}>Événements</button>
       </nav>
 
@@ -92,21 +91,6 @@ const AccueilVisiteur = () => {
           {formations.map((f, i) => (
             <div key={i}>
               <strong>{f.nom}</strong> — {f.niveau} — {f.duree}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {activeSection === 'campus' && (
-        <div>
-          <h1>Notre campus</h1>
-          {batiments.map((b, i) => (
-            <div key={i}>
-              <h2>Bâtiment {b.nom}</h2>
-              <p>{b.specialite}</p>
-              <ul>
-                {b.salles.map((s, j) => <li key={j}>{s}</li>)}
-              </ul>
             </div>
           ))}
         </div>

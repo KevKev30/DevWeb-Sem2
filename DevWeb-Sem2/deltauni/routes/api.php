@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\CapteurController;
+use App\Http\Controllers\SalleController;
 
 
 Route::get('/user', function (Request $request) {
@@ -27,3 +28,7 @@ Route::put('/capteurs/{id}', [CapteurController::class, 'update']);
 Route::put('/capteurs/{id}/etat', [CapteurController::class, 'changerEtat']);
 Route::post('/capteurs/{id}/suppression', [CapteurController::class, 'soliciterSuppression']);
 Route::get('/capteurs/{id}/historique', [CapteurController::class, 'historique']);
+
+Route::get('/membres', [UtilisateurController::class, 'membres']);
+Route::get('/salles', [SalleController::class, 'index']);
+Route::put('/salles/{id}/pc', [SalleController::class, 'updatePc']);

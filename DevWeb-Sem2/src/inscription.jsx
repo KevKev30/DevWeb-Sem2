@@ -84,7 +84,7 @@ const Inscription = () => {
       )}
       
       <br />
-      <em>Déjà un compte ? <Link to="/">Connectez-vous ici</Link></em>
+      <em>Déjà un compte ? <Link to="/connexion">Connectez-vous ici</Link></em>
     </fieldset>
   );
 };

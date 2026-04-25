@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function AccueilPrive() {
@@ -7,60 +7,49 @@ export default function AccueilPrive() {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-
     if (!storedUser) {
       navigate("/");
       return;
     }
-
+    if (Number(storedUser.id_profil) === 4) {
+      navigate("/accueilVisiteur");
+      return;
+    }
     setUser(storedUser);
   }, [navigate]);
 
-  if (!user) {
-    return <p>Chargement...</p>;
-  }
+  if (!user) return <p>Chargement...</p>;
+
+  const btnStyle = {
+    padding: "20px 40px",
+    fontSize: "1.2rem",
+    fontWeight: "bold",
+    cursor: "pointer",
+    borderRadius: "10px",
+    border: "2px solid #1f2937",
+    background: "white",
+    width: "100%"
+  };
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div style={{ padding: "40px", maxWidth: "700px", margin: "0 auto" }}>
 
-<<<<<<< HEAD
-      <div style={{ flex: 1, padding: "20px" }}>
-        <h1>Bienvenue {user.prenom} 👋</h1>
-        <button onClick={() => { localStorage.clear(); navigate('/'); }}>
-          Se déconnecter
+      <h1>Bonjour {user.prenom} 👋</h1>
+      <p>Bienvenue sur votre espace DeltaUni.</p>
+      <p>🏅 Niveau : <strong>{user.niveau || 'Débutant'}</strong> — <strong>{user.points || 0} points</strong></p>
+
+      <hr style={{ margin: "30px 0" }} />
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+        <button style={btnStyle} onClick={() => navigate('/accueilPrive/salles')}>🏫 Salles</button>
+        <button style={btnStyle} onClick={() => navigate('/accueilPrive/capteurs')}>💻 Ordinateurs</button>
+        <button style={btnStyle} onClick={() => navigate('/accueilPrive/membres')}>👥 Liste des membres</button>
+        <button style={btnStyle} onClick={() => navigate('/profil')}>👤 Mon profil</button>
+        <button style={{ ...btnStyle, background: "#fee2e2", borderColor: "#ef4444", color: "#ef4444" }}
+          onClick={() => { localStorage.clear(); navigate('/'); }}>
+          🚪 Déconnexion
         </button>
-        <button onClick={() => navigate('/Profil')}>
-          Modifier mon profil
-        </button>
-=======
-      {/* SIDEBAR */}
-      <aside
-        style={{
-          width: "240px",
-          background: "#1f2937",
-          color: "white",
-          padding: "20px"
-        }}
-      >
-        <h2 style={{ marginBottom: "20px" }}>🎓 ENT</h2>
->>>>>>> 48db589 (Amélioration ENT : layout + sidebar + routing corrigé)
-
-        <nav style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <a href="/accueilPrive/home" style={{ color: "white" }}>🏠 Home</a>
-          <a href="/accueilPrive/salles" style={{ color: "white" }}>🏫 Salles</a>
-          <a href="/accueilPrive/reservations" style={{ color: "white" }}>📅 Réservations</a>
-          <a href="/accueilPrive/notifications" style={{ color: "white" }}>🔔 Notifications</a>
-          <a href="/accueilPrive/ordinateurs" style={{ color: "white" }}>💻 Ordinateurs</a>
-        </nav>
-      </aside>
-
-      {/* CONTENU */}
-      <main style={{ flex: 1, padding: "25px", background: "#f3f4f6" }}>
-        <h1>ENT Université</h1>
-
-        {/* ici les pages enfants */}
-        <Outlet context={user} />
-      </main>
+      </div>
 
     </div>
   );

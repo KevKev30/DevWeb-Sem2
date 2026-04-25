@@ -1,57 +1,32 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-<<<<<<< HEAD
 import Connexion from "./connexion";
-import AccueilPrive from "./accueilPrive";
 import Inscription from "./inscription";
 import AccueilVisiteur from "./accueilVisiteur";
+import AccueilPrive from "./accueilPrive";
 import Profil from "./Profil";
-=======
-import Connexion from "./Connexion";
-import AccueilPrive from "./AccueilPrive";
-//import PrivateLayout from "./layouts/PrivateLayout";
->>>>>>> 48db589 (Amélioration ENT : layout + sidebar + routing corrigé)
 
-import Home from "./pages/Home";
+import Capteurs from "./pages/Capteurs";
+import Membres from "./pages/Membres";
 import Salles from "./pages/Salles";
-import Reservations from "./pages/Reservations";
-import Notifications from "./pages/Notifications";
-import Ordinateurs from "./pages/Ordinateurs";
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-<<<<<<< HEAD
-        {/* page publique */}
+        {/* pages publiques */}
         <Route path="/" element={<AccueilVisiteur />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
-        <Route path="/accueilVisiteur" element={<AccueilVisiteur />} />
 
         {/* espace privé */}
         <Route path="/accueilPrive" element={<AccueilPrive />} />
-
-        {/* pages secondaires (option simple) */}
-        <Route path="/salles" element={<Salles />} />
-        <Route path="/reservations" element={<Reservations />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/ordinateurs" element={<Ordinateurs />} />
+        <Route path="/accueilPrive/salles" element={<Salles />} />
         <Route path="/profil" element={<Profil />} />
-=======
-        
-       <Route path="/" element={<Connexion />}/>
-
-        
-        <Route path="/accueilPrive" element={<AccueilPrive />}>
-          <Route path="home" element={<Home />} />
-          <Route path="salles" element={<Salles />} />
-          <Route path="reservations" element={<Reservations />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="ordinateurs" element={<Ordinateurs />} />
-        </Route>
->>>>>>> 48db589 (Amélioration ENT : layout + sidebar + routing corrigé)
+        <Route path="/accueilPrive/capteurs" element={<Capteurs />} />
+        <Route path="/accueilPrive/membres" element={<Membres />} />
 
       </Routes>
     </BrowserRouter>
@@ -59,4 +34,3 @@ function App() {
 }
 
 export default App;
-
