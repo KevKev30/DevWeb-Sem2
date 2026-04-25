@@ -13,40 +13,6 @@ body {
   display: flex;
 }
 
-/* Navbar */
-.navbar {
-  background: #2c3e50;
-  color: white;
-  padding: 15px;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 200px;
-  height: 100vh;
-  background: #34495e;
-  color: white;
-  padding: 20px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  margin: 15px 0;
-  cursor: pointer;
-}
-
-.sidebar a {
-  color: white;
-  text-decoration: none;
-}
-
-.sidebar a:hover {
-  color: #1abc9c;
-}
 
 /* Content */
 .content {

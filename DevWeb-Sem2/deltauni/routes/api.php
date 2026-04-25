@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UtilisateurController;
 use App\Http\Controllers\CapteurController;
 use App\Http\Controllers\SalleController;
+use App\Http\Controllers\RestoUController;
 
 
 Route::get('/user', function (Request $request) {
@@ -26,9 +27,11 @@ Route::post('/capteurs', [CapteurController::class, 'store']);
 Route::get('/capteurs/{id}', [CapteurController::class, 'show']);
 Route::put('/capteurs/{id}', [CapteurController::class, 'update']);
 Route::put('/capteurs/{id}/etat', [CapteurController::class, 'changerEtat']);
-Route::post('/capteurs/{id}/suppression', [CapteurController::class, 'soliciterSuppression']);
-Route::get('/capteurs/{id}/historique', [CapteurController::class, 'historique']);
+Route::delete('/capteurs/{id}', [CapteurController::class, 'destroy']);
 
 Route::get('/membres', [UtilisateurController::class, 'membres']);
 Route::get('/salles', [SalleController::class, 'index']);
 Route::put('/salles/{id}/pc', [SalleController::class, 'updatePc']);
+
+Route::get('/menus', [RestoUController::class, 'index']);
+Route::get('/menus/{id}', [RestoUController::class, 'show']);

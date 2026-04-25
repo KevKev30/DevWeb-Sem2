@@ -4,11 +4,12 @@ import Connexion from "./connexion";
 import Inscription from "./inscription";
 import AccueilVisiteur from "./accueilVisiteur";
 import AccueilPrive from "./accueilPrive";
-import Profil from "./Profil";
 
+import Profil from "./pages/Profil";
 import Capteurs from "./pages/Capteurs";
 import Membres from "./pages/Membres";
 import Salles from "./pages/Salles";
+import RestoU from "./pages/RestoU";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/profil" element={<Profil />} />
         <Route path="/accueilPrive/capteurs" element={<Capteurs />} />
         <Route path="/accueilPrive/membres" element={<Membres />} />
+        <Route path="/accueilPrive/menus" element={<RestoU />} />
 
       </Routes>
     </BrowserRouter>

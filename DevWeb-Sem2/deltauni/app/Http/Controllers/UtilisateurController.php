@@ -108,4 +108,21 @@ class UtilisateurController extends Controller
                       ->get();
         return response()->json($membres);
     }
+
+    public function updateProfil(Request $request, $id)
+    {
+        $user = Utilisateur::where('id_user', $id)->firstOrFail();
+
+        $user->nom    = $request->input('nom', $user->nom);
+        $user->prenom = $request->input('prenom', $user->prenom);
+        $user->email  = $request->input('email', $user->email);
+
+        if ($request->filled('password')) {
+            $user->mot_de_passe = $request->input('password');
+        }
+
+        $user->save();
+
+        return response()->json(['status' => 'success', 'user' => $user]);
+    }
 }

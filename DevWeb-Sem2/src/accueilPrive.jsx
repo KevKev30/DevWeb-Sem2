@@ -28,6 +28,7 @@ export default function AccueilPrive() {
     borderRadius: "10px",
     border: "2px solid #1f2937",
     background: "white",
+    color: "#1f2937",
     width: "100%"
   };
 
@@ -44,6 +45,7 @@ export default function AccueilPrive() {
         <button style={btnStyle} onClick={() => navigate('/accueilPrive/salles')}>🏫 Salles</button>
         <button style={btnStyle} onClick={() => navigate('/accueilPrive/capteurs')}>💻 Ordinateurs</button>
         <button style={btnStyle} onClick={() => navigate('/accueilPrive/membres')}>👥 Liste des membres</button>
+        <button style={btnStyle} onClick={() => navigate('/accueilPrive/menus')}>🍽️ Menus Resto U</button>
         <button style={btnStyle} onClick={() => navigate('/profil')}>👤 Mon profil</button>
         <button style={{ ...btnStyle, background: "#fee2e2", borderColor: "#ef4444", color: "#ef4444" }}
           onClick={() => { localStorage.clear(); navigate('/'); }}>
