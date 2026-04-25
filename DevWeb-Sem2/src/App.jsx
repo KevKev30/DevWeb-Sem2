@@ -18,6 +18,7 @@ function App() {
 
         {/* pages publiques */}
         <Route path="/" element={<AccueilVisiteur />} />
+        <Route path="/accueilVisiteur" element={<AccueilVisiteur />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
 

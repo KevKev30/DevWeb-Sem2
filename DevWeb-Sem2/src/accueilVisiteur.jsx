@@ -31,8 +31,8 @@ const AccueilVisiteur = () => {
   useEffect(() => {
   const userData = JSON.parse(localStorage.getItem('user'));
   if (!userData) {
-    setUser(null); 
-    return;
+    setUser(null);
+    return; // on s'arrête là, pas de redirection
   }
   if (Number(userData.id_profil) !== 4) {
     navigate('/accueilPrive');
@@ -46,7 +46,11 @@ const AccueilVisiteur = () => {
       {user ? (
         <>
           <p>Connecté en tant que : {user.prenom} {user.nom}</p>
-          <button onClick={() => { localStorage.clear(); navigate('/'); }}>Déconnexion</button>
+          <button onClick={() => { 
+            localStorage.clear(); 
+            setUser(null);
+            navigate('/'); 
+          }}>Déconnexion</button>
         </>
       ) : (
         <>
