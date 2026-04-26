@@ -84,13 +84,13 @@ mysql -u delta_user -p DeltaUni_DB < DeltaUni_data.sql
 
 Ouvrez **deux terminaux** :
 
-**Terminal 1 — Backend Laravel :**
+**Terminal 1 — Backend Laravel : lancer cette commande dans le dossier deltauni : **
 ```bash
 php artisan serve
 ```
 → Accessible sur `http://127.0.0.1:8000`
 
-**Terminal 2 — Frontend React :**
+**Terminal 2 — Frontend React : Lancer cette commande dans le dossier DevWeb-Sem2 (le dossier enfant pas le dossier parent) : **
 ```bash
 npm run dev
 ```
