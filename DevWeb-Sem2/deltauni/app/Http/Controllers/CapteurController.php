@@ -52,7 +52,10 @@ class CapteurController extends Controller
                 'id_salle'            => $request->input('id_salle'),
             ]);
 
-            return response()->json(['status' => 'success', 'capteur' => $capteur], 201);
+            // On recharge le capteur avec ses relations pour que le front-end ait tout
+            $capteurComplet = Capteur::with(['salle.batiment'])->find($capteur->id_capteur);
+
+            return response()->json(['status' => 'success', 'capteur' => $capteurComplet], 201);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }

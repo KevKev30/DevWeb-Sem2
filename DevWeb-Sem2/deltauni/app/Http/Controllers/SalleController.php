@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Salle;
 
 class SalleController extends Controller
 {
@@ -22,5 +23,11 @@ class SalleController extends Controller
             'pc_disponibles' => $request->input('pc_disponibles')
         ]);
         return response()->json(['status' => 'success']);
+    }
+
+    public function getSalles()
+    {
+        $salles = Salle::with('batiment')->get();
+        return response()->json($salles);
     }
 }
