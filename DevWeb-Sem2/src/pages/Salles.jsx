@@ -44,7 +44,7 @@ const Salles = () => {
         <div>
           <h1 style={{ color: 'var(--cy-blue)', margin: '0 0 10px 0' }}>Salles de DeltaUni</h1>
           <p style={{ margin: 0, color: 'var(--cy-gray)' }}>Niveau : <strong style={{ color: 'var(--cy-text)' }}>{user.niveau}</strong> — {user.points} pts</p>
-          {!peutModifier && <p style={{ fontSize: '0.85rem', color: '#d97706', margin: '5px 0 0 0' }}><em>💡 Atteignez le niveau Avancé pour modifier les PC.</em></p>}
+          {!peutModifier && <p style={{ fontSize: '0.85rem', color: '#d97706', margin: '5px 0 0 0' }}><em>💡 Atteignez le niveau Avancé pour modifier les données des salles.</em></p>}
         </div>
 
         <div className="cy-card" style={{ display: 'flex', gap: '15px', padding: '15px', marginBottom: 0 }}>
