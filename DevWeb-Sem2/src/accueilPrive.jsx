@@ -42,11 +42,11 @@ export default function AccueilPrive() {
       <hr style={{ margin: "30px 0" }} />
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-        <button style={btnStyle} onClick={() => navigate('/accueilPrive/salles')}>🏫 Salles</button>
-        <button style={btnStyle} onClick={() => navigate('/accueilPrive/capteurs')}>💻 Ordinateurs</button>
-        <button style={btnStyle} onClick={() => navigate('/accueilPrive/membres')}>👥 Liste des membres</button>
-        <button style={btnStyle} onClick={() => navigate('/accueilPrive/menus')}>🍽️ Menus Resto U</button>
-        <button style={btnStyle} onClick={() => navigate('/profil')}>👤 Mon profil</button>
+        <button style={{ ...btnStyle, color: "#000000" }} onClick={() => navigate('/accueilPrive/salles')}>🏫 Salles</button>
+        <button style={{ ...btnStyle, color: "#000000" }} onClick={() => navigate('/accueilPrive/capteurs')}>💻 Appareils connectés</button>
+        <button style={{ ...btnStyle, color: "#000000" }} onClick={() => navigate('/accueilPrive/membres')}>👥 Liste des membres</button>
+        <button style={{ ...btnStyle, color: "#000000" }} onClick={() => navigate('/accueilPrive/menus')}>🍽️ Menus Resto U</button>
+        <button style={{ ...btnStyle, color: "#000000" }} onClick={() => navigate('/profil')}>👤 Mon profil</button>
         <button style={{ ...btnStyle, background: "#fee2e2", borderColor: "#ef4444", color: "#ef4444" }}
           onClick={() => { localStorage.clear(); navigate('/'); }}>
           🚪 Déconnexion
