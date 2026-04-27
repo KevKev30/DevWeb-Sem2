@@ -35,6 +35,23 @@ const Capteurs = () => {
   }, [navigate]);
 
   useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (userData) {
+      fetch(`http://127.0.0.1:8000/api/points/${userData.id_user}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'consultation' })
+      })
+        .then(r => r.json())
+        .then(data => {
+          const updated = { ...userData, points: data.points, niveau: data.niveau };
+          localStorage.setItem('user', JSON.stringify(updated));
+          setUser(updated);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
     let url = 'http://127.0.0.1:8000/api/capteurs?';
     if (filtreType) url += `type=${filtreType}&`;
     if (filtreEtat) url += `etat=${filtreEtat}`;
