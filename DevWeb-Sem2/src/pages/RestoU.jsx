@@ -15,14 +15,8 @@ const RestoU = () => {
 
     fetch('http://127.0.0.1:8000/api/menus')
       .then(r => r.json())
-      .then(data => {
-        setMenus(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setErreur("Impossible de charger les menus.");
-        setLoading(false);
-      });
+      .then(data => { setMenus(data); setLoading(false); })
+      .catch(() => { setErreur("Impossible de charger les menus."); setLoading(false); });
   }, [navigate]);
 
   const formatDate = (dateStr) => {
@@ -33,39 +27,51 @@ const RestoU = () => {
   if (!user) return <p>Chargement...</p>;
 
   return (
-    <div>
-      <button onClick={() => navigate('/accueilPrive')}>← Retour</button>
-      <h1>🍽️ Menus du Resto U</h1>
+    <div style={{ padding: '30px', maxWidth: '1000px', margin: '0 auto' }}>
+      <button className="cy-button-outline" onClick={() => navigate('/accueilPrive')} style={{ marginBottom: '20px' }}>
+        ← Retour
+      </button>
+      <h1 style={{ color: 'var(--cy-blue)' }}>🍽️ Menus du Resto U</h1>
 
-      {erreur && <p style={{ color: 'red' }}>❌ {erreur}</p>}
+      {erreur && <div style={{ padding: '10px', backgroundColor: '#fee2e2', color: '#991b1b', borderRadius: '6px' }}>❌ {erreur}</div>}
 
       {loading ? (
-        <p>Chargement des menus...</p>
+        <p style={{ color: 'var(--cy-gray)' }}>Chargement des menus...</p>
       ) : menus.length === 0 ? (
-        <p>Aucun menu disponible pour le moment.</p>
+        <p style={{ color: 'var(--cy-gray)' }}>Aucun menu disponible pour le moment.</p>
       ) : (
-        menus.map(menu => (
-          <div key={menu.id_menu} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '15px', borderRadius: '8px' }}>
-            <h2 style={{ marginTop: 0 }}>📅 {formatDate(menu.date_jour)}</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px', marginTop: '20px' }}>
+          {menus.map(menu => (
+            <div key={menu.id_menu} className="cy-card" style={{ position: 'relative', borderTop: '4px solid var(--cy-blue)' }}>
+              <div style={{ 
+                position: 'absolute', top: '15px', right: '15px', 
+                padding: '4px 10px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 'bold',
+                backgroundColor: menu.ouvert_ferme ? '#dcfce7' : '#fee2e2',
+                color: menu.ouvert_ferme ? '#166534' : '#991b1b'
+              }}>
+                {menu.ouvert_ferme ? 'OUVERT' : 'FERMÉ'}
+              </div>
 
-            <p>🥗 <strong>Entrée :</strong> {menu.entree}</p>
-            <p>🍲 <strong>Plat principal :</strong> {menu.plat_principal}</p>
-            <p>🍮 <strong>Dessert :</strong> {menu.dessert}</p>
+              <h2 style={{ marginTop: 0, fontSize: '1.2rem', textTransform: 'capitalize', color: 'var(--cy-text)' }}>
+                {formatDate(menu.date_jour)}
+              </h2>
+              
+              <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '15px 0' }} />
 
-            {menu.stock_distributeur && (
-              <p>🥪 <strong>Distributeur :</strong> {menu.stock_distributeur}</p>
-            )}
-
-            <p>
-              🔓 <strong>Ouverture :</strong>{' '}
-              {menu.ouvert_ferme ? (
-                <span style={{ color: 'green' }}>Ouvert</span>
-              ) : (
-                <span style={{ color: 'red' }}>Fermé</span>
-              )}
-            </p>
-          </div>
-        ))
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div><span style={{ fontSize: '1.2rem', marginRight: '8px' }}>🥗</span> <strong>Entrée :</strong> <span style={{ color: 'var(--cy-gray)' }}>{menu.entree}</span></div>
+                <div><span style={{ fontSize: '1.2rem', marginRight: '8px' }}>🍲</span> <strong>Plat :</strong> <span style={{ color: 'var(--cy-gray)' }}>{menu.plat_principal}</span></div>
+                <div><span style={{ fontSize: '1.2rem', marginRight: '8px' }}>🍮</span> <strong>Dessert :</strong> <span style={{ color: 'var(--cy-gray)' }}>{menu.dessert}</span></div>
+                
+                {menu.stock_distributeur && (
+                  <div style={{ marginTop: '10px', padding: '10px', backgroundColor: 'var(--bg-app)', borderRadius: '6px', fontSize: '0.9rem' }}>
+                    🥪 <strong>Distributeur :</strong> {menu.stock_distributeur}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

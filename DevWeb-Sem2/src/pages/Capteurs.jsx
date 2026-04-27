@@ -149,132 +149,47 @@ const Capteurs = () => {
   if (!user) return <p>Chargement...</p>;
 
   return (
-    <div>
-      <button onClick={() => navigate('/accueilPrive')}>← Retour</button>
-      <h1>Appareils connectés</h1>
-      <p>Niveau : <strong>{user.niveau}</strong> — {user.points} pts</p>
-      {!peutModifier && <p><em>💡 Atteignez le niveau Avancé pour modifier les capteurs.</em></p>}
-
-      {message && <p>{message.text}</p>}
-
-      {/* FILTRES */}
-      <div>
-        <label>Type : </label>
-        <select value={filtreType} onChange={e => setFiltreType(e.target.value)}>
-          <option value="">Tous</option>
-          <option value="Température">Température</option>
-          <option value="Éclairage">Éclairage</option>
-          <option value="Eau">Eau</option>
-          <option value="Électricité">Électricité</option>
-        </select>
-
-        <label> État : </label>
-        <select value={filtreEtat} onChange={e => setFiltreEtat(e.target.value)}>
-          <option value="">Tous</option>
-          <option value="OK">OK</option>
-          <option value="Panne">Panne</option>
-          <option value="Maintenance">Maintenance</option>
-        </select>
-      </div>
-
-      <br />
-
-      {/* BOUTON AJOUT */}
-      {peutModifier && (
-        <button onClick={() => { setShowAjout(!showAjout); setMessage(null); }}>
-          {showAjout ? '✖ Annuler' : '➕ Ajouter un capteur'}
-        </button>
-      )}
-
-      {/* FORMULAIRE AJOUT */}
-      {showAjout && (
-        <form onSubmit={handleAjoutSubmit} style={{ border: '1px solid #4caf50', padding: '10px', margin: '10px 0' }}>
-          <h3>Nouveau capteur</h3>
-          <div>
-            <label>Type : </label>
-            <select name="type_capteur" value={ajoutData.type_capteur} onChange={handleAjoutChange}>
-              <option value="Température">Température</option>
-              <option value="Éclairage">Éclairage</option>
-              <option value="Eau">Eau</option>
-              <option value="Électricité">Électricité</option>
-            </select>
-          </div>
-          <div>
-            <label>Valeur actuelle : </label>
-            <input name="valeur_actuelle" type="number" step="0.1" value={ajoutData.valeur_actuelle} onChange={handleAjoutChange} required />
-          </div>
-          <div>
-            <label>Unité : </label>
-            <input name="unite_mesure" value={ajoutData.unite_mesure} onChange={handleAjoutChange} required />
-          </div>
-          <div>
-            <label>État : </label>
-            <select name="etat_fonctionnement" value={ajoutData.etat_fonctionnement} onChange={handleAjoutChange}>
-              <option value="OK">OK</option>
-              <option value="Panne">Panne</option>
-              <option value="Maintenance">Maintenance</option>
-            </select>
-          </div>
-          <div>
-            <label>ID Salle : </label>
-            <input name="id_salle" type="number" value={ajoutData.id_salle} onChange={handleAjoutChange} required />
-          </div>
-          <br />
-          <button type="submit">✅ Enregistrer</button>
-        </form>
-      )}
-
-      <br />
-
-      {/* LISTE */}
-      {capteurs.map(capteur => (
-        <div key={capteur.id_capteur} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-          {editing === capteur.id_capteur ? (
-            <form onSubmit={e => handleSubmit(e, capteur.id_capteur)}>
-              <div>
-                <label>Type : </label>
-                <select name="type_capteur" value={formData.type_capteur} onChange={handleChange}>
-                  <option value="Température">Température</option>
-                  <option value="Éclairage">Éclairage</option>
-                  <option value="Eau">Eau</option>
-                  <option value="Électricité">Électricité</option>
-                </select>
-              </div>
-              <div>
-                <label>Valeur actuelle : </label>
-                <input name="valeur_actuelle" type="number" step="0.1" value={formData.valeur_actuelle} onChange={handleChange} />
-              </div>
-              <div>
-                <label>Unité : </label>
-                <input name="unite_mesure" value={formData.unite_mesure} onChange={handleChange} />
-              </div>
-              <div>
-                <label>État : </label>
-                <select name="etat_fonctionnement" value={formData.etat_fonctionnement} onChange={handleChange}>
-                  <option value="OK">OK</option>
-                  <option value="Panne">Panne</option>
-                  <option value="Maintenance">Maintenance</option>
-                </select>
-              </div>
-              <br />
-              <button type="submit">Enregistrer</button>
-              <button type="button" onClick={handleCancel}>Annuler</button>
-            </form>
-          ) : (
-            <div>
-              <strong>{capteur.type_capteur}</strong> — {capteur.valeur_actuelle} {capteur.unite_mesure}<br />
-              État : {capteur.etat_fonctionnement}<br />
-              Salle : {capteur.salle?.num_salle ?? capteur.id_salle}
-              {peutModifier && (
-                <>
-                  {' '}<button onClick={() => handleEdit(capteur)}>✏️ Modifier</button>
-                  {' '}<button onClick={() => handleDelete(capteur.id_capteur)} style={{ color: 'red' }}>🗑️ Supprimer</button>
-                </>
-              )}
-            </div>
+    <div style={{ padding: '30px' }}>
+       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+          <h1 style={{ color: 'var(--cy-blue)', margin: 0 }}>Appareils Connectés</h1>
+          {peutModifier && (
+            <button className="cy-button" onClick={() => setShowAjout(!showAjout)}>
+              {showAjout ? 'Fermer' : '+ Ajouter un capteur'}
+            </button>
           )}
-        </div>
-      ))}
+       </div>
+
+      {/* Grid de Capteurs */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+        {capteurs.map(capteur => (
+          <div key={capteur.id_capteur} className="cy-card" style={{ position: 'relative' }}>
+            <div style={{ 
+              position: 'absolute', top: '15px', right: '15px', 
+              padding: '4px 8px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 'bold',
+              backgroundColor: capteur.etat_fonctionnement === 'OK' ? '#dcfce7' : '#fee2e2',
+              color: capteur.etat_fonctionnement === 'OK' ? '#166534' : '#991b1b'
+            }}>
+              {capteur.etat_fonctionnement}
+            </div>
+            
+            <h3 style={{ margin: '0 0 10px 0', fontSize: '1.2rem' }}>{capteur.type_capteur}</h3>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--cy-blue)', marginBottom: '10px' }}>
+              {capteur.valeur_actuelle} <span style={{ fontSize: '1rem', fontWeight: 'normal' }}>{capteur.unite_mesure}</span>
+            </div>
+            
+            <p style={{ color: 'var(--cy-gray)', fontSize: '0.9rem' }}>
+              📍 Salle : <strong>{capteur.salle?.num_salle ?? 'N/A'}</strong>
+            </p>
+
+            {peutModifier && (
+              <div style={{ display: 'flex', gap: '10px', marginTop: '15px', borderTop: '1px solid var(--border)', paddingTop: '10px' }}>
+                <button className="cy-button-outline" style={{ padding: '5px 10px', fontSize: '0.8rem' }} onClick={() => handleEdit(capteur)}>Modifier</button>
+                <button className="cy-button-outline" style={{ padding: '5px 10px', fontSize: '0.8rem', borderColor: '#ef4444', color: '#ef4444' }} onClick={() => handleDelete(capteur.id_capteur)}>Supprimer</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -49,47 +49,49 @@ const Connexion = () => {
     }
   };
 
+// ... imports identiques
   return (
-    <fieldset>
-      <p>Connectez-vous</p>
-      <form onSubmit={handleLogin}>
-        <div className="entete">Identifiez-vous...</div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+      <div className="cy-card" style={{ width: '100%', maxWidth: '400px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <h2 style={{ color: 'var(--cy-blue)' }}>Espace DeltaUni</h2>
+          <p style={{ color: 'var(--cy-gray)' }}>Identifiez-vous pour accéder à vos services</p>
+        </div>
 
-        {erreur && (
-          <div style={{ color: 'red', marginBottom: '10px' }}>
-            ❌ {erreur}
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          {erreur && <div style={{ color: '#dc2626', backgroundColor: '#fef2f2', padding: '10px', borderRadius: '4px', fontSize: '0.9rem' }}>{erreur}</div>}
+          
+          <div>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Adresse mail</label>
+            <input 
+              type="email" 
+              className="cy-input" // Ajoute ce style dans ton CSS pour des inputs propres
+              style={{ width: '95%', padding: '10px', borderRadius: '4px', border: '1px solid var(--border)' }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
           </div>
-        )}
 
-        <div className="caption">Adresse mail</div>
-        <div className="zone">
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Mot de passe</label>
+            <input 
+              type="password" 
+              style={{ width: '95%', padding: '10px', borderRadius: '4px', border: '1px solid var(--border)' }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+            />
+          </div>
+
+          <button type="submit" className="cy-button" style={{ marginTop: '10px' }}>Se connecter</button>
+        </form>
+
+        <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+          <p>Pas encore de compte ? <Link to="/inscription" style={{ color: 'var(--cy-blue)', fontWeight: 'bold' }}>S'inscrire</Link></p>
         </div>
-
-        <div className="caption">Mot de passe</div>
-        <div className="zone">
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="cliquer">
-          <input type="submit" value="Se Connecter" />
-        </div>
-
-        <em>Pas encore de compte ? <Link to="/inscription">Inscription</Link></em>
-      </form>
-    </fieldset>
+      </div>
+    </div>
   );
 };
 

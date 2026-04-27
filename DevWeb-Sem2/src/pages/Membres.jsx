@@ -45,43 +45,51 @@ const Membres = () => {
   if (!user) return <p>Chargement...</p>;
 
   return (
-    <div>
-      <button onClick={() => navigate('/accueilPrive')}>← Retour</button>
-      <h1>Membres de DeltaUni</h1>
+    <div style={{ padding: '30px', maxWidth: '1000px', margin: '0 auto' }}>
+      <button className="cy-button-outline" onClick={() => navigate('/accueilPrive')} style={{ marginBottom: '20px' }}>
+        ← Retour au tableau de bord
+      </button>
 
-      {/* FILTRES */}
-      <div>
-        <input
-          placeholder="Rechercher par nom, prénom ou email..."
-          value={recherche}
-          onChange={e => setRecherche(e.target.value)}
-          style={{ width: '300px' }}
-        />
-        <label> Rôle : </label>
-        <select value={filtreRole} onChange={e => setFiltreRole(e.target.value)}>
-          <option value="">Tous</option>
-          <option value="1">Étudiants</option>
-          <option value="2">Enseignants</option>
-        </select>
-      </div>
-
-      <p>{membresFiltres.length} membre(s) trouvé(s)</p>
-
-      {/* LISTE */}
-      {membresFiltres.map(m => (
-        <div key={m.id_user} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <strong>{m.prenom} {m.nom}</strong> — {profilLabels[m.id_profil]}<br />
-            <small>{m.email}</small>
-            {m.num_etudiant && <><br /><small>N° étudiant : {m.num_etudiant}</small></>}
+      <div className="cy-card" style={{ marginBottom: '30px' }}>
+        <h1 style={{ color: 'var(--cy-blue)', marginTop: 0 }}>Annuaire DeltaUni</h1>
+        
+        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+          <div style={{ flex: 1, minWidth: '250px' }}>
+            <label style={{ display: 'block', marginBottom: '5px', fontSize: '0.9rem' }}>Rechercher un membre</label>
+            <input
+              placeholder="Nom, prénom ou email..."
+              value={recherche}
+              onChange={e => setRecherche(e.target.value)}
+              style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--border)' }}
+            />
           </div>
           <div>
-            {m.id_user !== user.id_user && (
-              <button onClick={() => navigate(`/chat/${m.id_user}`)}>✉️</button>
-            )}
+            <label style={{ display: 'block', marginBottom: '5px', fontSize: '0.9rem' }}>Rôle</label>
+            <select value={filtreRole} onChange={e => setFiltreRole(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid var(--border)' }}>
+              <option value="">Tous les rôles</option>
+              <option value="1">Étudiants</option>
+              <option value="2">Enseignants</option>
+            </select>
           </div>
         </div>
-      ))}
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px' }}>
+        {membresFiltres.map(m => (
+          <div key={m.id_user} className="cy-card" style={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: 'var(--cy-light-blue)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'var(--cy-blue)', fontWeight: 'bold' }}>
+              {m.prenom[0]}{m.nom[0]}
+            </div>
+            <div>
+              <strong style={{ display: 'block', fontSize: '1.1rem' }}>{m.prenom} {m.nom}</strong>
+              <span style={{ fontSize: '0.85rem', color: 'var(--cy-blue)', fontWeight: '600', textTransform: 'uppercase' }}>
+                {profilLabels[m.id_profil]}
+              </span>
+              <div style={{ fontSize: '0.8rem', color: 'var(--cy-gray)' }}>{m.email}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

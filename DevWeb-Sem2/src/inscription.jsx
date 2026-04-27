@@ -37,55 +37,61 @@ const Inscription = () => {
   };
 
   return (
-    <fieldset>
-      <legend>Inscription à DeltaUni</legend>
-
-      {!type ? (
-        <div>
-          <p>Quel est votre statut ?</p>
-          <button onClick={() => setType('etudiant')}>Je suis Étudiant</button>
-          <button onClick={() => setType('visiteur')}>Je suis Visiteur</button>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', padding: '20px' }}>
+      <div className="cy-card" style={{ width: '100%', maxWidth: '500px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <h2 style={{ color: 'var(--cy-blue)' }}>Rejoindre DeltaUni</h2>
+          <p style={{ color: 'var(--cy-gray)' }}>Créez votre compte en quelques instants</p>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <h3>Inscription {type === 'etudiant' ? 'Étudiant' : 'Visiteur'}</h3>
-          
-          <div>
-            <label>Nom : </label>
-            <input name="nom" onChange={handleChange} required />
+
+        {!type ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <p style={{ textAlign: 'center' }}>Quel est votre statut ?</p>
+            <button className="cy-button" onClick={() => setType('etudiant')}>Je suis Étudiant</button>
+            <button className="cy-button-outline" onClick={() => setType('visiteur')}>Je suis Visiteur</button>
           </div>
-          
-          <div>
-            <label>Prénom : </label>
-            <input name="prenom" onChange={handleChange} required />
-          </div>
-          
-          {type === 'etudiant' && (
-            <div>
-              <label>Numéro Étudiant : </label>
-              <input name="num_etudiant" onChange={handleChange} required />
+        ) : (
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <h3 style={{ borderBottom: '2px solid var(--cy-light-blue)', paddingBottom: '10px' }}>
+              Inscription {type === 'etudiant' ? 'Étudiant' : 'Visiteur'}
+            </h3>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: '500' }}>Nom</label>
+                <input name="nom" className="cy-input" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid var(--border)' }} onChange={handleChange} required />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: '500' }}>Prénom</label>
+                <input name="prenom" className="cy-input" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid var(--border)' }} onChange={handleChange} required />
+              </div>
             </div>
-          )}
 
-          <div>
-            <label>Email : </label>
-            <input type="email" name="email" onChange={handleChange} required />
-          </div>
+            {type === 'etudiant' && (
+              <div>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: '500' }}>Numéro Étudiant</label>
+                <input name="num_etudiant" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid var(--border)' }} onChange={handleChange} required />
+              </div>
+            )}
 
-          <div>
-            <label>Mot de passe : </label>
-            <input type="password" name="password" onChange={handleChange} required />
-          </div>
-          
-          <br />
-          <button type="submit">S'inscrire</button>
-          <button type="button" onClick={() => setType(null)}>Retour</button>
-        </form>
-      )}
-      
-      <br />
-      <em>Déjà un compte ? <Link to="/connexion">Connectez-vous ici</Link></em>
-    </fieldset>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: '500' }}>Email institutionnel</label>
+              <input type="email" name="email" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid var(--border)' }} onChange={handleChange} required />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: '500' }}>Mot de passe</label>
+              <input type="password" name="password" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid var(--border)' }} onChange={handleChange} required />
+            </div>
+            
+            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+              <button type="submit" className="cy-button" style={{ flex: 2 }}>S'inscrire</button>
+              <button type="button" className="cy-button-outline" style={{ flex: 1 }} onClick={() => setType(null)}>Retour</button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
   );
 };
 
