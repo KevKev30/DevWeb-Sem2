@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Réintégration de tes données initiales
+
 const evenements = [
   { id: 1, titre: 'Soirée BDE', description: 'Grande soirée de fin de semestre ouverte à tous.', date: '15 Mai 2026', heure: '21h00', lieu: 'Hall Condorcet' },
   { id: 2, titre: 'Hackathon DeltaJunior', description: '24h de code non-stop pour résoudre des défis réels.', date: '10 Juin 2026', heure: '09h00', lieu: 'Salles T101 / T102 — Bâtiment Turing' },
